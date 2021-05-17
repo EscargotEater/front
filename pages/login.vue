@@ -1,53 +1,42 @@
 <template>
-  <div class="o">
-    <p class="b">ระบบลงทะเบียน</p>
+  <div class="box">
+    <p class="bigmsg">ระบบล็อกอิน</p>
     <hr class="solid" />
 
-    <p class="p">กรุณากรอกข้อมูลเพื่อทำการลงทะเบียน</p>
+    <p class="desc">กรุณากรอกข้อมูลเพื่อเข้าสู่ระบบ</p>
 
-    <p class="q">อีเมล</p>
+    <p class="fieldname">อีเมล</p>
     <b-input-group class="mb-2" size="lg">
       <b-input-group-prepend is-text>
         <b-icon icon="envelope-fill"></b-icon>
       </b-input-group-prepend>
       <b-form-input
-        v-model="register.email"
-        class="msg"
+        v-model="data.identifier"
         type="text"
         placeholder="โปรดกรอกอีเมลของท่านลงในช่องนี้"
+        class="msg"
       ></b-form-input>
     </b-input-group>
 
-    <p class="r">รหัสผ่าน</p>
+    <p class="fieldname">รหัสผ่าน</p>
     <b-input-group class="mb-2" size="lg">
       <b-input-group-prepend is-text>
         <b-icon icon="person-fill"></b-icon>
       </b-input-group-prepend>
       <b-form-input
-        v-model="register.password"
-        class="msg"
+        v-model="data.password"
         type="text"
         placeholder="โปรดกรอกรหัสผ่านของท่านลงในช่องนี้"
-      ></b-form-input>
-    </b-input-group>
-
-    <p class="r">ยืนยันรหัสผ่าน</p>
-    <b-input-group class="mb-2" size="lg">
-      <b-input-group-prepend is-text>
-        <b-icon icon="person-fill"></b-icon>
-      </b-input-group-prepend>
-      <b-form-input
         class="msg"
-        type="text"
-        placeholder="โปรดยืนยันรหัสผ่านของท่านลงในช่องนี้"
       ></b-form-input>
     </b-input-group>
 
     <b-button
       type="submit"
       value="submit"
-      variant="outline-warning"
+      variant="outline-primary"
       style="
+        display: block;
         font-family: 'K2D', sans-serif;
         font-size: 20px;
         font-weight: bold;
@@ -56,43 +45,40 @@
         border-radius: 5px;
         transition-duration: 0.4s;
         padding: 10px 15px;
-        margin-left: 42%;
+        margin-left: auto;
+        margin-right: auto;
         margin-top: 20px;
         text-align: center;
       "
-      @click="regis"
+      @click="login"
     >
-      ลงทะเบียน
+      เข้าสู่ระบบ
     </b-button>
-    <div class="login">
-      มีบัญชีอยู่แล้ว? <nuxt-link to="/guest/login">เข้าสู่ระบบ</nuxt-link>
+    <div class="link-to">
+      ยังไม่มีบัญชี? <nuxt-link to="/register">ลงทะเบียน</nuxt-link>
     </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   layout: 'headerguest',
   data() {
     return {
-      register: {
-        email: '',
+      data: {
+        identifier: '',
         password: '',
       },
     }
   },
   methods: {
-    async regis(e) {
-      e.preventDefault()
+    async login() {
+      this.error = null
       try {
-        const response = await axios.post(
-          'http://localhost:1337/auth/local/register',
-          this.register
-        )
-        console.log('Exception: ', response.message)
+        await this.$auth.loginWith('local', { data: this.data })
+        //  this.$router.push('/')
       } catch (e) {
-        console.log('Exception: ', e.response)
+        this.error = e.response.data.message[0].messages[0].message
       }
     },
   },
@@ -104,41 +90,35 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 /* import font K2D */
 @import url('https://fonts.googleapis.com/css2?family=K2D:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
-.b {
+
+.bigmsg {
   color: darkslategray;
   font-family: 'K2D', sans-serif;
-  font-size: 60px;
+  font-size: 40px;
   text-align: center;
-  padding-top: 200px;
+  padding-top: 120px;
+  font-weight: bold;
 }
-.o {
-  margin-left: 500px;
-  margin-right: 500px;
-  margin-bottom: 100px;
-  padding-left: 50px;
-  padding-right: 50px;
-  padding-bottom: 50px;
+.box {
+  margin: auto;
+  width: 60%;
+  padding: 10px;
 }
-.p {
+.desc {
   color: black;
   font-family: 'K2D', sans-serif;
-  font-size: 30px;
+  font-size: 25px;
   font-weight: bold;
-  margin-top: 50px;
+  margin-top: 30px;
   text-align: center;
 }
-.q {
-  color: darkslategray;
-  font-family: 'K2D', sans-serif;
-  font-size: 15px;
-}
-.r {
+.fieldname {
   margin-top: 20px;
   color: darkslategray;
   font-family: 'K2D', sans-serif;
-  font-size: 25px;
+  font-size: 20px;
 }
-.login {
+.link-to {
   font-family: 'K2D', sans-serif;
   font-size: 20px;
   font-weight: bold;
@@ -148,5 +128,8 @@ export default {
 .msg {
   font-family: 'K2D', sans-serif;
   font-size: 20px;
+}
+.bg {
+  background-color: blue;
 }
 </style>
