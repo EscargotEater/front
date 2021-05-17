@@ -43,7 +43,9 @@ export default {
   },
   
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
+  axios: {
+    
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
@@ -52,7 +54,7 @@ export default {
     strategies: {
       local: {
         endpoints: {
-          login: { url: 'http://localhost:1337/auth/local/', method: 'post', propertyName: 'jwt' },
+          login: { url: 'http://localhost:1337/auth/local', method: 'post', propertyName: 'jwt' },
           user: {
             url: 'users/me',
             method: 'get',

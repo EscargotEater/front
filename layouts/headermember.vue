@@ -2,7 +2,7 @@
   <div>
     <b-navbar type="faded" variant="light" class="c">
       <b-navbar-brand href="http://localhost:3000/guest/home" class="ml-3">
-        <img src="~assets/Logoweb1.png" />
+        <img src="~assets/logoweb1.png" />
       </b-navbar-brand>
       <b-navbar-brand v-b-toggle.sidebar-backdrop href="#" class="ml-auto">
         <img src="~assets/menu1.png" />
