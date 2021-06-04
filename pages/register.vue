@@ -11,12 +11,15 @@
         <b-icon icon="envelope-fill"></b-icon>
       </b-input-group-prepend>
       <b-form-input
-        v-model="register.email"
+        v-model="$v.email.$model"
+        :class="{ hasError: $v.email.$error }"
         class="msg"
         type="text"
         placeholder="โปรดกรอกอีเมลของท่านลงในช่องนี้"
       ></b-form-input>
     </b-input-group>
+    <div v-if="!$v.email.required" class="error">กรุณากรอกอีเมล์</div>
+    <div v-if="!$v.email.email" class="error">อีเมล์ไม่ถูกต้อง</div>
 
     <p class="fieldname">รหัสผ่าน</p>
     <b-input-group class="mb-2" size="lg">
@@ -24,12 +27,18 @@
         <b-icon icon="person-fill"></b-icon>
       </b-input-group-prepend>
       <b-form-input
-        v-model="register.password"
+        v-model="$v.password.$model"
+        :class="{ hasError: $v.password.$error }"
         class="msg"
         type="text"
         placeholder="โปรดกรอกรหัสผ่านของท่านลงในช่องนี้"
       ></b-form-input>
     </b-input-group>
+    <div v-if="!$v.password.required" class="error">กรุณากรอกรหัสผ่าน</div>
+    <div v-if="!$v.password.minLength" class="error">
+      กรุณากรอกรหัสผ่านอย่างน้อย
+      {{ $v.password.$params.minLength.min }} ตัวอักษร
+    </div>
 
     <p class="fieldname">ยืนยันรหัสผ่าน</p>
     <b-input-group class="mb-2" size="lg">
@@ -37,11 +46,17 @@
         <b-icon icon="person-fill"></b-icon>
       </b-input-group-prepend>
       <b-form-input
+        v-model="$v.repassword.$model"
+        :class="{ hasError: $v.repassword.$error }"
         class="msg"
         type="text"
         placeholder="โปรดยืนยันรหัสผ่านของท่านลงในช่องนี้"
       ></b-form-input>
     </b-input-group>
+    <div v-if="!$v.repassword.required" class="error">กรุณายืนยันรหัสผ่าน</div>
+    <div v-if="!$v.repassword.sameAs && $v.repassword.required" class="error">
+      รหัสผ่านไม่ตรงกัน
+    </div>
 
     <b-button
       type="submit"
@@ -74,16 +89,30 @@
 
 <script>
 import axios from 'axios'
+import { required, minLength, email, sameAs } from 'vuelidate/lib/validators'
+
 export default {
   layout: 'headerguest',
   data() {
     return {
-      register: {
-        email: '',
-        password: '',
-        error: null,
-      },
+      email: '',
+      password: '',
+      repassword: '',
     }
+  },
+  validations: {
+    email: {
+      email,
+      required,
+    },
+    password: {
+      minLength: minLength(6),
+      required,
+    },
+    repassword: {
+      required,
+      sameAs: sameAs('password'),
+    },
   },
   methods: {
     async regis(e) {
@@ -91,7 +120,11 @@ export default {
       try {
         const response = await axios.post(
           'http://localhost:1337/auth/local/register',
-          this.register
+          {
+            username: this.email,
+            email: this.email,
+            password: this.password,
+          }
         )
         this.error = response.message
       } catch (e) {
