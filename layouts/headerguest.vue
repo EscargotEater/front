@@ -20,13 +20,13 @@
     >
       <div class="px-3 py-2">
         <b-nav vertical>
-          <b-nav-item href="http://127.0.0.1:3000/home"
-            ><p class="a">หน้าแรก</p></b-nav-item
-          >
+          <b-nav-item to="/home"><p class="a">หน้าแรก</p></b-nav-item>
           <!-- b-nav-item ไม่มี property style color -->
 
-          <b-nav-item href="http://127.0.0.1:3000/aboutus"
-            ><p class="a">เกี่ยวกับเรา</p></b-nav-item
+          <b-nav-item to="/aboutus"><p class="a">เกี่ยวกับเรา</p></b-nav-item>
+
+          <b-nav-item v-if="$auth.loggedIn" to="/profile"
+            ><p class="a">ข้อมูลสมาชิก</p></b-nav-item
           >
 
           <b-navbar toggleable type="dark">
@@ -38,15 +38,19 @@
             <!-- id ยังไม่ได้ใช้ -->
             <b-collapse id="navbar-toggle-collapse1" is-nav>
               <b-navbar-nav class="g">
-                <b-nav-item href="http://127.0.0.1:3000/detectdiabetes"
+                <b-nav-item to="/detectdiabetes"
                   ><p class="f">โรคเบาหวาน</p></b-nav-item
                 >
-                <b-nav-item href="http://127.0.0.1:3000/detectheart"
+                <b-nav-item to="/detectheart"
                   ><p class="f">โรคหัวใจ</p></b-nav-item
                 >
               </b-navbar-nav>
             </b-collapse>
           </b-navbar>
+
+          <b-nav-item v-if="$auth.loggedIn" to="/history"
+            ><p class="f">ประวัติการตรวจ</p></b-nav-item
+          >
 
           <b-navbar toggleable type="dark">
             <b-navbar-brand href="#"><p class="e">ข้อมูลโรค</p></b-navbar-brand>
@@ -55,24 +59,25 @@
             <!-- id ยังไม่ได้ใช้ -->
             <b-collapse id="navbar-toggle-collapse2" is-nav>
               <b-navbar-nav class="g">
-                <b-nav-item href="http://127.0.0.1:3000/diabetesinfo"
+                <b-nav-item to="/diabetesinfo"
                   ><p class="f">ข้อมูลโรคเบาหวาน</p></b-nav-item
                 >
-                <b-nav-item href="http://127.0.0.1:3000/heartinfo"
+                <b-nav-item to="/heartinfo"
                   ><p class="f">ข้อมูลโรคหัวใจ</p></b-nav-item
                 >
               </b-navbar-nav>
             </b-collapse>
           </b-navbar>
 
-          <b-nav-item href="http://127.0.0.1:3000/game"
-            ><p class="a">เกมส์ตอบคำถาม</p></b-nav-item
-          >
-          <b-nav-item href="http://127.0.0.1:3000/login"
+          <b-nav-item to="/game"><p class="a">เกมส์ตอบคำถาม</p></b-nav-item>
+          <b-nav-item v-if="!$auth.loggedIn" to="/login"
             ><p class="a">เข้าสู่ระบบ</p></b-nav-item
           >
-          <b-nav-item href="http://127.0.0.1:3000/register"
+          <b-nav-item v-if="!$auth.loggedIn" to="/register"
             ><p class="a">ลงทะเบียน</p></b-nav-item
+          >
+          <b-nav-item v-if="$auth.loggedIn" @click="logOut"
+            ><p class="a">ออกจากระบบ</p></b-nav-item
           >
         </b-nav>
       </div>
@@ -82,7 +87,13 @@
 </template>
 
 <script>
-export default {}
+export default {
+  methods: {
+    async logOut() {
+      await this.$auth.logout()
+    },
+  },
+}
 </script>
 
 <style>

@@ -16,9 +16,12 @@
         class="msg"
         type="text"
         placeholder="โปรดกรอกอีเมลของท่านลงในช่องนี้"
+        @input="$v.email.$touch()"
       ></b-form-input>
     </b-input-group>
-    <div v-if="!$v.email.required" class="error">กรุณากรอกอีเมล์</div>
+    <div v-if="!$v.email.required && $v.email.$dirty" class="error">
+      กรุณากรอกอีเมล์
+    </div>
     <div v-if="!$v.email.email" class="error">อีเมล์ไม่ถูกต้อง</div>
 
     <p class="fieldname">รหัสผ่าน</p>
@@ -32,9 +35,12 @@
         class="msg"
         type="text"
         placeholder="โปรดกรอกรหัสผ่านของท่านลงในช่องนี้"
+        @input="$v.password.$touch()"
       ></b-form-input>
     </b-input-group>
-    <div v-if="!$v.password.required" class="error">กรุณากรอกรหัสผ่าน</div>
+    <div v-if="!$v.password.required && $v.password.$dirty" class="error">
+      กรุณากรอกรหัสผ่าน
+    </div>
     <div v-if="!$v.password.minLength" class="error">
       กรุณากรอกรหัสผ่านอย่างน้อย
       {{ $v.password.$params.minLength.min }} ตัวอักษร
@@ -51,11 +57,50 @@
         class="msg"
         type="text"
         placeholder="โปรดยืนยันรหัสผ่านของท่านลงในช่องนี้"
+        @input="$v.repassword.$touch()"
       ></b-form-input>
     </b-input-group>
-    <div v-if="!$v.repassword.required" class="error">กรุณายืนยันรหัสผ่าน</div>
+    <div v-if="!$v.repassword.required && $v.repassword.$dirty" class="error">
+      กรุณายืนยันรหัสผ่าน
+    </div>
     <div v-if="!$v.repassword.sameAs && $v.repassword.required" class="error">
       รหัสผ่านไม่ตรงกัน
+    </div>
+
+    <p class="fieldname">ชื่อ</p>
+    <b-input-group class="mb-2" size="lg">
+      <b-input-group-prepend is-text>
+        <b-icon icon="person-fill"></b-icon>
+      </b-input-group-prepend>
+      <b-form-input
+        v-model="$v.firstName.$model"
+        :class="{ hasError: $v.firstName.$error }"
+        class="msg"
+        type="text"
+        placeholder="โปรดกรอกชื่อของท่านลงในช่องนี้"
+        @input="$v.firstName.$touch()"
+      ></b-form-input>
+    </b-input-group>
+    <div v-if="!$v.firstName.required && $v.firstName.$dirty" class="error">
+      กรุณากรอกชื่อ
+    </div>
+
+    <p class="fieldname">นามสกุล</p>
+    <b-input-group class="mb-2" size="lg">
+      <b-input-group-prepend is-text>
+        <b-icon icon="person-fill"></b-icon>
+      </b-input-group-prepend>
+      <b-form-input
+        v-model="$v.lastName.$model"
+        :class="{ hasError: $v.lastName.$error }"
+        class="msg"
+        type="text"
+        placeholder="โปรดกรอกนามสกุลของท่านลงในช่องนี้"
+        @input="$v.lastName.$touch()"
+      ></b-form-input>
+    </b-input-group>
+    <div v-if="!$v.lastName.required && $v.lastName.$dirty" class="error">
+      กรุณากรอกนามสกุล
     </div>
 
     <b-button
@@ -82,7 +127,7 @@
       ลงทะเบียน
     </b-button>
     <div class="login">
-      มีบัญชีอยู่แล้ว? <nuxt-link to="/login">เข้าสู่ระบบ</nuxt-link>
+      มีบัญชีอยู่แล้ว? <b-link to="/login">เข้าสู่ระบบ</b-link>
     </div>
   </div>
 </template>
@@ -98,6 +143,8 @@ export default {
       email: '',
       password: '',
       repassword: '',
+      firstName: '',
+      lastName: '',
     }
   },
   validations: {
@@ -113,6 +160,12 @@ export default {
       required,
       sameAs: sameAs('password'),
     },
+    firstName: {
+      required,
+    },
+    lastName: {
+      required,
+    },
   },
   methods: {
     async regis(e) {
@@ -124,6 +177,8 @@ export default {
             username: this.email,
             email: this.email,
             password: this.password,
+            FirstName: this.firstName,
+            LastName: this.lastName,
           }
         )
         this.error = response.message
@@ -177,5 +232,8 @@ export default {
 .msg {
   font-family: 'K2D', sans-serif;
   font-size: 20px;
+}
+.error {
+  color: red;
 }
 </style>
