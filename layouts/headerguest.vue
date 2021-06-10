@@ -5,12 +5,14 @@
         <b-navbar-brand to="/" class="ml-3">
           <img src="../assets/logoweb1.png" />
         </b-navbar-brand>
-        <b-nav-item>
-					{{ $auth.loggedIn }}
-				</b-nav-item>
-        <b-navbar-brand v-b-toggle.sidebar-backdrop href="#" class="ml-auto">
-          <img src="../assets/menu1.png" />
-        </b-navbar-brand>
+        <b-navbar-nav class="ml-auto">
+          <b-navbar-brand>
+            {{ $auth.loggedIn }}
+          </b-navbar-brand>
+          <b-navbar-brand v-b-toggle.sidebar-backdrop href="#" class="ml-5">
+            <img src="../assets/menu1.png" />
+          </b-navbar-brand>
+        </b-navbar-nav>
       </b-navbar>
     </div>
     <b-sidebar
@@ -52,7 +54,7 @@
           </b-navbar>
 
           <b-nav-item v-if="$auth.loggedIn" to="/history"
-            ><p class="f">ประวัติการตรวจ</p></b-nav-item
+            ><p class="a">ประวัติการตรวจ</p></b-nav-item
           >
 
           <b-navbar toggleable type="dark">

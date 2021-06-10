@@ -33,7 +33,7 @@
         v-model="$v.password.$model"
         :class="{ hasError: $v.password.$error }"
         class="msg"
-        type="text"
+        type="password"
         placeholder="โปรดกรอกรหัสผ่านของท่านลงในช่องนี้"
         @input="$v.password.$touch()"
       ></b-form-input>
@@ -55,7 +55,7 @@
         v-model="$v.repassword.$model"
         :class="{ hasError: $v.repassword.$error }"
         class="msg"
-        type="text"
+        type="password"
         placeholder="โปรดยืนยันรหัสผ่านของท่านลงในช่องนี้"
         @input="$v.repassword.$touch()"
       ></b-form-input>
@@ -70,7 +70,7 @@
     <p class="fieldname">ชื่อ</p>
     <b-input-group class="mb-2" size="lg">
       <b-input-group-prepend is-text>
-        <b-icon icon="person-fill"></b-icon>
+        <b-icon icon="person-circle"></b-icon>
       </b-input-group-prepend>
       <b-form-input
         v-model="$v.firstName.$model"
@@ -88,7 +88,7 @@
     <p class="fieldname">นามสกุล</p>
     <b-input-group class="mb-2" size="lg">
       <b-input-group-prepend is-text>
-        <b-icon icon="person-fill"></b-icon>
+        <b-icon icon="person-circle"></b-icon>
       </b-input-group-prepend>
       <b-form-input
         v-model="$v.lastName.$model"
@@ -168,7 +168,7 @@ export default {
     },
   },
   methods: {
-    /*async regis() {
+    async regis() {
       try {
         const response = await axios.post(
           'http://localhost:1337/auth/local/register',
@@ -180,10 +180,11 @@ export default {
             LastName: this.lastName,
           }
         )
+        console.log('Response: ', response)
       } catch (e) {
         console.log('Exception: ', e.response)
       }
-    },*/
+    },
   },
 }
 </script>

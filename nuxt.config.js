@@ -17,9 +17,7 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [
-     '~/plugins/Vuelidate'
-  ],
+  plugins: ['~/plugins/Vuelidate'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -27,7 +25,7 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/eslint
-    ['@nuxtjs/eslint-module', {fix: true}]
+    ['@nuxtjs/eslint-module', { fix: true }],
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -36,29 +34,29 @@ export default {
     'bootstrap-vue/nuxt',
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    '@nuxtjs/auth'
+    '@nuxtjs/auth',
   ],
 
   bootstrapVue: {
     // Install the `IconsPlugin` plugin (in addition to `BootstrapVue` plugin)
-    icons: true
+    icons: true,
   },
-  
+
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     proxy: true,
-	prefix: "/api/",
+    prefix: '/api/',
   },
-  
+
   proxy: {
-		"/api/": {
-			pathRewrite: {
-				"^/api/": "",
-			},
-			target: process.env.API_URL || "http://localhost:1337",
-			secure: process.env.NODE_ENV === "production",
-		},
-	},
+    '/api/': {
+      pathRewrite: {
+        '^/api/': '',
+      },
+      target: process.env.API_URL || 'http://localhost:1337',
+      secure: process.env.NODE_ENV === 'production',
+    },
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
@@ -67,20 +65,20 @@ export default {
     strategies: {
       local: {
         endpoints: {
-          login: { url: 'http://localhost:1337/auth/local', method: 'post', propertyName: 'jwt' },
+          login: { url: 'auth/local', method: 'post', propertyName: 'jwt' },
           user: {
             url: 'users/me',
             method: 'get',
-            propertyName: false
-            },
-          logout: false
-        }
-      }
+            propertyName: false,
+          },
+          logout: false,
+        },
+      },
     },
     redirect: {
       login: '/login',
       logout: '/',
-      home: '/'
-    }
-  }
+      home: '/',
+    },
+  },
 }

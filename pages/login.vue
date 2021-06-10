@@ -25,7 +25,7 @@
       </b-input-group-prepend>
       <b-form-input
         v-model="data.password"
-        type="text"
+        type="password"
         placeholder="โปรดกรอกรหัสผ่านของท่านลงในช่องนี้"
         class="msg"
       ></b-form-input>
