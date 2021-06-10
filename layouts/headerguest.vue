@@ -2,9 +2,12 @@
   <div>
     <div class="c">
       <b-navbar type="faded" variant="light">
-        <b-navbar-brand href="http://127.0.0.1:3000/home" class="ml-3">
+        <b-navbar-brand to="/" class="ml-3">
           <img src="../assets/logoweb1.png" />
         </b-navbar-brand>
+        <b-nav-item>
+					{{ $auth.loggedIn }}
+				</b-nav-item>
         <b-navbar-brand v-b-toggle.sidebar-backdrop href="#" class="ml-auto">
           <img src="../assets/menu1.png" />
         </b-navbar-brand>
@@ -20,7 +23,7 @@
     >
       <div class="px-3 py-2">
         <b-nav vertical>
-          <b-nav-item to="/home"><p class="a">หน้าแรก</p></b-nav-item>
+          <b-nav-item to="/"><p class="a">หน้าแรก</p></b-nav-item>
           <!-- b-nav-item ไม่มี property style color -->
 
           <b-nav-item to="/aboutus"><p class="a">เกี่ยวกับเรา</p></b-nav-item>

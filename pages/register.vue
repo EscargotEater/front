@@ -168,8 +168,7 @@ export default {
     },
   },
   methods: {
-    async regis(e) {
-      e.preventDefault()
+    /*async regis() {
       try {
         const response = await axios.post(
           'http://localhost:1337/auth/local/register',
@@ -181,11 +180,10 @@ export default {
             LastName: this.lastName,
           }
         )
-        this.error = response.message
       } catch (e) {
         console.log('Exception: ', e.response)
       }
-    },
+    },*/
   },
 }
 </script>

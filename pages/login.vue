@@ -73,12 +73,10 @@ export default {
   },
   methods: {
     async login() {
-      this.error = null
       try {
         await this.$auth.loginWith('local', { data: this.data })
-        //  this.$router.push('/')
       } catch (e) {
-        this.error = e.response.data.message[0].messages[0].message
+        console.log('Exception: ', e.response)
       }
     },
   },

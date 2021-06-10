@@ -1,63 +1,37 @@
 <template>
-  <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">frontend</h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
-    </div>
+  <div>
+    <b-carousel id="carousel1" :interval="3000" controls indicators fade>
+      <b-carousel-slide img-src="~assets/home3.png" class="mt">
+      </b-carousel-slide>
+      <b-carousel-slide img-src="~assets/home5.png" class="mt">
+      </b-carousel-slide>
+    </b-carousel>
+    <h1 class="big">
+      ยินดีต้อนรับเข้าสู่เว็บไซต์ที่ให้บริการตรวจความเสี่ยงการเป็นโรคเบาหวานและโรคหัวใจ
+    </h1>
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+  layout: 'headerguest',
+}
 </script>
 
 <style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* import font Kanit */
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+/* import font K2D */
+@import url('https://fonts.googleapis.com/css2?family=K2D:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+.big {
+  color: darkslategray;
+  font-family: 'K2D', sans-serif;
+  font-size: 30px;
   text-align: center;
+  padding: 70px;
 }
 
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
+.mt {
+  margin-top: 70px;
 }
 </style>

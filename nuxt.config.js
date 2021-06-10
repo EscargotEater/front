@@ -46,8 +46,19 @@ export default {
   
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    
+    proxy: true,
+	prefix: "/api/",
   },
+  
+  proxy: {
+		"/api/": {
+			pathRewrite: {
+				"^/api/": "",
+			},
+			target: process.env.API_URL || "http://localhost:1337",
+			secure: process.env.NODE_ENV === "production",
+		},
+	},
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
@@ -67,7 +78,9 @@ export default {
       }
     },
     redirect: {
-      login: '/guest/login'
+      login: '/login',
+      logout: '/',
+      home: '/'
     }
   }
 }
