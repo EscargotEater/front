@@ -1,6 +1,6 @@
 <template>
   <div class="o">
-    <p class="b">แบบฟอร์มประเมินความเสี่ยงการเป็นโรคเบาหวาน</p>
+    <p class="b">ประเมินความเสี่ยงการเป็นโรคเบาหวาน</p>
     <hr class="solid" />
     <b-container fluid>
       <b-card
@@ -84,7 +84,7 @@
           <b-col cols="2">
             <b-form-spinbutton
               id="glucose"
-              v-model="value.glucose"
+              v-model="value.fbs"
               inline
               min="0"
               max="500"
@@ -124,7 +124,7 @@
           <b-col cols="2">
             <b-form-spinbutton
               id="pressurehigh"
-              v-model="value.pressurehigh"
+              v-model="value.bpsy"
               inline
               min="0"
               max="250"
@@ -144,7 +144,7 @@
           <b-col cols="2">
             <b-form-spinbutton
               id="chloresterolall"
-              v-model="value.chloresterolall"
+              v-model="value.tchol"
               inline
               min="0"
               max="250"
@@ -190,12 +190,14 @@
         font-family: 'K2D', sans-serif;
         font-size: 25px;
       "
+      @click="submit"
       >ประเมินความเสี่ยง
     </b-button>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   layout: 'headerguest',
   data() {
@@ -204,15 +206,27 @@ export default {
         age: 50,
         height: 170,
         weight: 60,
-        glucose: 100,
+        fbs: 100,
         waist: 70,
-        pressurehigh: 120,
-        chloresterolall: 175,
+        bpsy: 120,
+        tchol: 175,
         hdl: 50,
       },
     }
   },
   methods: {
+    async submit() {
+      await axios.post('http://localhost:1337/predict/db', {
+        fbs: this.value.fbs,
+        waist: this.value.waist,
+        age: this.value.age,
+        bpsy: this.value.bpsy,
+        tchol: this.value.tchol,
+        hdl: this.value.hdl,
+        weight: this.value.weight,
+        height: this.value.height,
+      })
+    },
     onSubmit2(event) {
       event.preventDefault()
       alert(JSON.stringify(this.value))

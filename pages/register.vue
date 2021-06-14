@@ -11,18 +11,18 @@
         <b-icon icon="envelope-fill"></b-icon>
       </b-input-group-prepend>
       <b-form-input
-        v-model="$v.email.$model"
-        :class="{ hasError: $v.email.$error }"
+        v-model="$v.form.email.$model"
+        :class="{ hasError: $v.form.email.$error }"
         class="msg"
         type="text"
         placeholder="โปรดกรอกอีเมลของท่านลงในช่องนี้"
-        @input="$v.email.$touch()"
+        @input="$v.form.email.$touch()"
       ></b-form-input>
     </b-input-group>
-    <div v-if="!$v.email.required && $v.email.$dirty" class="error">
+    <div v-if="!$v.form.email.required && $v.form.email.$dirty" class="error">
       กรุณากรอกอีเมล์
     </div>
-    <div v-if="!$v.email.email" class="error">อีเมล์ไม่ถูกต้อง</div>
+    <div v-if="!$v.form.email.email" class="error">อีเมล์ไม่ถูกต้อง</div>
 
     <p class="fieldname">รหัสผ่าน</p>
     <b-input-group class="mb-2" size="lg">
@@ -30,20 +30,23 @@
         <b-icon icon="person-fill"></b-icon>
       </b-input-group-prepend>
       <b-form-input
-        v-model="$v.password.$model"
-        :class="{ hasError: $v.password.$error }"
+        v-model="$v.form.password.$model"
+        :class="{ hasError: $v.form.password.$error }"
         class="msg"
         type="password"
         placeholder="โปรดกรอกรหัสผ่านของท่านลงในช่องนี้"
-        @input="$v.password.$touch()"
+        @input="$v.form.password.$touch()"
       ></b-form-input>
     </b-input-group>
-    <div v-if="!$v.password.required && $v.password.$dirty" class="error">
+    <div
+      v-if="!$v.form.password.required && $v.form.password.$dirty"
+      class="error"
+    >
       กรุณากรอกรหัสผ่าน
     </div>
-    <div v-if="!$v.password.minLength" class="error">
+    <div v-if="!$v.form.password.minLength" class="error">
       กรุณากรอกรหัสผ่านอย่างน้อย
-      {{ $v.password.$params.minLength.min }} ตัวอักษร
+      {{ $v.form.password.$params.minLength.min }} ตัวอักษร
     </div>
 
     <p class="fieldname">ยืนยันรหัสผ่าน</p>
@@ -52,18 +55,24 @@
         <b-icon icon="person-fill"></b-icon>
       </b-input-group-prepend>
       <b-form-input
-        v-model="$v.repassword.$model"
-        :class="{ hasError: $v.repassword.$error }"
+        v-model="$v.form.repassword.$model"
+        :class="{ hasError: $v.form.repassword.$error }"
         class="msg"
         type="password"
         placeholder="โปรดยืนยันรหัสผ่านของท่านลงในช่องนี้"
-        @input="$v.repassword.$touch()"
+        @input="$v.form.repassword.$touch()"
       ></b-form-input>
     </b-input-group>
-    <div v-if="!$v.repassword.required && $v.repassword.$dirty" class="error">
+    <div
+      v-if="!$v.form.repassword.required && $v.form.repassword.$dirty"
+      class="error"
+    >
       กรุณายืนยันรหัสผ่าน
     </div>
-    <div v-if="!$v.repassword.sameAs && $v.repassword.required" class="error">
+    <div
+      v-if="!$v.form.repassword.sameAs && $v.form.repassword.required"
+      class="error"
+    >
       รหัสผ่านไม่ตรงกัน
     </div>
 
@@ -73,15 +82,18 @@
         <b-icon icon="person-circle"></b-icon>
       </b-input-group-prepend>
       <b-form-input
-        v-model="$v.firstName.$model"
-        :class="{ hasError: $v.firstName.$error }"
+        v-model="$v.form.firstName.$model"
+        :class="{ hasError: $v.form.firstName.$error }"
         class="msg"
         type="text"
         placeholder="โปรดกรอกชื่อของท่านลงในช่องนี้"
-        @input="$v.firstName.$touch()"
+        @input="$v.form.firstName.$touch()"
       ></b-form-input>
     </b-input-group>
-    <div v-if="!$v.firstName.required && $v.firstName.$dirty" class="error">
+    <div
+      v-if="!$v.form.firstName.required && $v.form.firstName.$dirty"
+      class="error"
+    >
       กรุณากรอกชื่อ
     </div>
 
@@ -91,15 +103,18 @@
         <b-icon icon="person-circle"></b-icon>
       </b-input-group-prepend>
       <b-form-input
-        v-model="$v.lastName.$model"
-        :class="{ hasError: $v.lastName.$error }"
+        v-model="$v.form.lastName.$model"
+        :class="{ hasError: $v.form.lastName.$error }"
         class="msg"
         type="text"
         placeholder="โปรดกรอกนามสกุลของท่านลงในช่องนี้"
-        @input="$v.lastName.$touch()"
+        @input="$v.form.lastName.$touch()"
       ></b-form-input>
     </b-input-group>
-    <div v-if="!$v.lastName.required && $v.lastName.$dirty" class="error">
+    <div
+      v-if="!$v.form.lastName.required && $v.form.lastName.$dirty"
+      class="error"
+    >
       กรุณากรอกนามสกุล
     </div>
 
@@ -140,49 +155,57 @@ export default {
   layout: 'headerguest',
   data() {
     return {
-      email: '',
-      password: '',
-      repassword: '',
-      firstName: '',
-      lastName: '',
+      form: {
+        email: '',
+        password: '',
+        repassword: '',
+        firstName: '',
+        lastName: '',
+      },
     }
   },
   validations: {
-    email: {
-      email,
-      required,
-    },
-    password: {
-      minLength: minLength(6),
-      required,
-    },
-    repassword: {
-      required,
-      sameAs: sameAs('password'),
-    },
-    firstName: {
-      required,
-    },
-    lastName: {
-      required,
+    form: {
+      email: {
+        email,
+        required,
+      },
+      password: {
+        minLength: minLength(6),
+        required,
+      },
+      repassword: {
+        required,
+        sameAs: sameAs('password'),
+      },
+      firstName: {
+        required,
+      },
+      lastName: {
+        required,
+      },
     },
   },
   methods: {
     async regis() {
-      try {
-        const response = await axios.post(
-          'http://localhost:1337/auth/local/register',
-          {
-            username: this.email,
-            email: this.email,
-            password: this.password,
-            FirstName: this.firstName,
-            LastName: this.lastName,
-          }
-        )
-        console.log('Response: ', response)
-      } catch (e) {
-        console.log('Exception: ', e.response)
+      if (!this.$v.form.$anyError) {
+        try {
+          await axios.post('http://localhost:1337/auth/local/register', {
+            username: this.form.email,
+            email: this.form.email,
+            password: this.form.password,
+            FirstName: this.form.firstName,
+            LastName: this.form.lastName,
+          })
+        } catch (e) {
+          console.log('Exception: ', e.response)
+        }
+        await this.$auth.loginWith('local', {
+          data: {
+            identifier: this.form.email,
+            password: this.form.password,
+          },
+        })
       }
     },
   },

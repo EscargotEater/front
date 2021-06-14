@@ -1,11 +1,11 @@
 <template>
   <div class="o">
-    <p class="b">แบบฟอร์มประเมินความเสี่ยงการเป็นโรคเบาหวาน</p>
+    <p class="b">ประเมินความเสี่ยงการเป็นโรคหัวใจ</p>
     <hr class="solid" />
     <b-container fluid>
       <b-card
         border-variant="primary"
-        header="โปรดกรอกข้อมูลผลตรวจสุขภาพประจำปี"
+        header="โปรดกรอกข้อมูลสุขภาพเพื่อประเมินความเสี่ยงของโรค"
         header-bg-variant="primary"
         header-text-variant="white"
         bg-variant="light"
@@ -53,7 +53,7 @@
             ></b-form-spinbutton>
           </b-col>
           <b-col>
-            <b-card-text> มิลลิลิตร/เดซิลิตร </b-card-text>
+            <b-card-text> มิลลิกรัม/เดซิลิตร </b-card-text>
           </b-col>
         </b-row>
 
@@ -133,7 +133,7 @@
             ></b-form-spinbutton>
           </b-col>
           <b-col>
-            <b-card-text> มิลลิกรัม.เดซิลิตร </b-card-text>
+            <b-card-text> มิลลิกรัม/เดซิลิตร </b-card-text>
           </b-col>
         </b-row>
 
@@ -153,7 +153,7 @@
             ></b-form-spinbutton>
           </b-col>
           <b-col>
-            <b-card-text> มิลลิกรัม.เดซิลิตร </b-card-text>
+            <b-card-text> มิลลิกรัม/เดซิลิตร </b-card-text>
           </b-col>
         </b-row>
       </b-card>

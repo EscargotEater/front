@@ -7,7 +7,7 @@
         </b-navbar-brand>
         <b-navbar-nav class="ml-auto">
           <b-navbar-brand>
-            {{ $auth.loggedIn }}
+            {{ customerName }}
           </b-navbar-brand>
           <b-navbar-brand v-b-toggle.sidebar-backdrop href="#" class="ml-5">
             <img src="../assets/menu1.png" />
@@ -33,11 +33,10 @@
           <b-nav-item v-if="$auth.loggedIn" to="/profile"
             ><p class="a">ข้อมูลสมาชิก</p></b-nav-item
           >
-
           <b-navbar toggleable type="dark">
-            <b-navbar-brand href="#"
-              ><p class="e">ประเมินโรค</p></b-navbar-brand
-            >
+            <b-navbar-brand href="#">
+              <p class="e">ประเมินโรค</p>
+            </b-navbar-brand>
             <b-navbar-toggle target="navbar-toggle-collapse1" class="d">
             </b-navbar-toggle>
             <!-- id ยังไม่ได้ใช้ -->
@@ -58,7 +57,9 @@
           >
 
           <b-navbar toggleable type="dark">
-            <b-navbar-brand href="#"><p class="e">ข้อมูลโรค</p></b-navbar-brand>
+            <b-navbar-brand href="#" target="navbar-toggle-collapse2"
+              ><p class="e">ข้อมูลโรค</p></b-navbar-brand
+            >
             <b-navbar-toggle target="navbar-toggle-collapse2" class="d">
             </b-navbar-toggle>
             <!-- id ยังไม่ได้ใช้ -->
@@ -93,6 +94,15 @@
 
 <script>
 export default {
+  computed: {
+    customerName() {
+      if (this.$auth.loggedIn && this.$auth.user) {
+        return this.$auth.user.FirstName + ' ' + this.$auth.user.LastName
+      } else {
+        return 'Guest'
+      }
+    },
+  },
   methods: {
     async logOut() {
       await this.$auth.logout()
