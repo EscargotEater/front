@@ -37,6 +37,18 @@ export default {
     '@nuxtjs/auth',
   ],
 
+  moment: {
+    defaultLocale: 'th',
+    locales: ['th'],
+    timezone: true,
+  },
+
+  toast: {
+    theme: 'toasted-primary',
+    position: 'top-right',
+    duration: 5000,
+  },
+
   bootstrapVue: {
     // Install the `IconsPlugin` plugin (in addition to `BootstrapVue` plugin)
     icons: true,
@@ -59,7 +71,9 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    extractCSS: true,
+  },
 
   auth: {
     strategies: {

@@ -1,5 +1,5 @@
 <template>
-  <b-container>
+  <b-container class="my-5">
     <p class="b">ประเมินความเสี่ยงการเป็นโรคเบาหวาน</p>
     <hr class="mt-3 mb-5" />
     <b-card
@@ -194,6 +194,5 @@ export default {
   font-family: 'K2D', sans-serif;
   font-size: 40px;
   text-align: center;
-  padding-top: 150px;
 }
 </style>
