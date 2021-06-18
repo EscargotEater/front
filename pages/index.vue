@@ -1,9 +1,9 @@
 <template>
   <div>
     <b-carousel id="carousel1" :interval="3000" controls indicators fade>
-      <b-carousel-slide img-src="~assets/home3.png" class="mt">
+      <b-carousel-slide img-src="~assets/home4.png" class="mt">
       </b-carousel-slide>
-      <b-carousel-slide img-src="~assets/home5.png" class="mt">
+      <b-carousel-slide img-src="~assets/home6.png" class="mt">
       </b-carousel-slide>
     </b-carousel>
     <h1 class="big">
@@ -28,7 +28,7 @@ export default {
   font-family: 'K2D', sans-serif;
   font-size: 30px;
   text-align: center;
-  padding: 70px;
+  padding: 50px;
 }
 
 .mt {

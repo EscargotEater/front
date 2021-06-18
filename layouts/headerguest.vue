@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="c">
-      <b-navbar type="faded" variant="light">
+      <b-navbar toggleable="lg" type="faded" variant="light">
         <b-navbar-brand to="/" class="ml-3">
           <img src="../assets/logoweb1.png" />
         </b-navbar-brand>
@@ -10,7 +10,7 @@
             {{ customerName }}
           </b-navbar-brand>
           <b-navbar-brand v-b-toggle.sidebar-backdrop href="#" class="ml-5">
-            <img src="../assets/menu1.png" />
+            <b-icon icon="list" font-scale="2"></b-icon>
           </b-navbar-brand>
         </b-navbar-nav>
       </b-navbar>
