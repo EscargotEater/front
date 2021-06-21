@@ -1,5 +1,5 @@
 <template>
-  <b-container class="mb-5">
+  <b-container class="mt-5">
     <b-row>
       <b-col cols="12">
         <p class="b">ข้อมูลโรคเบาหวาน</p>
@@ -220,7 +220,6 @@ export default {
   font-family: 'K2D', sans-serif;
   font-size: 45px;
   text-align: center;
-  padding-top: 150px;
 }
 
 .p {

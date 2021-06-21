@@ -1,10 +1,8 @@
 <template>
   <div>
     <b-carousel id="carousel1" :interval="3000" controls indicators fade>
-      <b-carousel-slide img-src="~assets/home4.png" class="mt">
-      </b-carousel-slide>
-      <b-carousel-slide img-src="~assets/home6.png" class="mt">
-      </b-carousel-slide>
+      <b-carousel-slide img-src="~assets/home4.png"> </b-carousel-slide>
+      <b-carousel-slide img-src="~assets/home6.png"> </b-carousel-slide>
     </b-carousel>
     <h1 class="big">
       ยินดีต้อนรับเข้าสู่เว็บไซต์ที่ให้บริการตรวจความเสี่ยงการเป็นโรคเบาหวานและโรคหัวใจ
@@ -29,9 +27,5 @@ export default {
   font-size: 30px;
   text-align: center;
   padding: 50px;
-}
-
-.mt {
-  margin-top: 70px;
 }
 </style>

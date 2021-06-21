@@ -1,20 +1,18 @@
 <template>
   <div>
-    <div class="c">
-      <b-navbar toggleable="lg" type="faded" variant="light">
-        <b-navbar-brand to="/" class="ml-3">
-          <img src="../assets/logoweb1.png" />
+    <b-navbar toggleable="lg" type="faded" variant="light">
+      <b-navbar-brand to="/" class="ml-3">
+        <img src="../assets/logoweb1.png" />
+      </b-navbar-brand>
+      <b-navbar-nav class="ml-auto">
+        <b-navbar-brand>
+          {{ customerName }}
         </b-navbar-brand>
-        <b-navbar-nav class="ml-auto">
-          <b-navbar-brand>
-            {{ customerName }}
-          </b-navbar-brand>
-          <b-navbar-brand v-b-toggle.sidebar-backdrop href="#" class="ml-5">
-            <b-icon icon="list" font-scale="2"></b-icon>
-          </b-navbar-brand>
-        </b-navbar-nav>
-      </b-navbar>
-    </div>
+        <b-navbar-brand v-b-toggle.sidebar-backdrop href="#" class="ml-5">
+          <b-icon icon="list" font-scale="2"></b-icon>
+        </b-navbar-brand>
+      </b-navbar-nav>
+    </b-navbar>
     <b-sidebar
       id="sidebar-backdrop"
       bg-variant="primary"
@@ -136,13 +134,6 @@ img {
   color: white;
   font-family: 'K2D', sans-serif;
   font-size: 25px;
-}
-.c {
-  position: fixed;
-  /*ทำให้เป็นคนละ layer*/
-  z-index: 2;
-  height: 70px;
-  width: 100%;
 }
 
 /*adjust dropdown button */

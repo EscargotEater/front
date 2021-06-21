@@ -1,5 +1,5 @@
 <template>
-  <b-container class="mb-5">
+  <b-container class="my-5">
     <b-row>
       <b-col cols="12">
         <p class="b">ข้อมูลโรคหัวใจ</p>
@@ -604,21 +604,8 @@ export default {
 .b {
   color: darkslategray;
   font-family: 'K2D', sans-serif;
-  font-size: 60px;
+  font-size: 45px;
   text-align: center;
-  padding-top: 150px;
-}
-
-.o {
-  margin-left: 200px;
-  margin-right: 200px;
-  padding-left: 50px;
-  padding-right: 50px;
-  padding-bottom: 50px;
-}
-
-hr.solid {
-  border-top: 1px solid #bbb;
 }
 
 .p {
