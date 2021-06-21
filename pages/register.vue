@@ -4,6 +4,7 @@
     <hr class="solid" />
 
     <p class="desc">กรุณากรอกข้อมูลเพื่อทำการลงทะเบียน</p>
+    <b-alert v-if="error" show variant="danger">{{ error }}</b-alert>
 
     <p class="fieldname">อีเมล</p>
     <b-input-group class="mb-2" size="lg">
@@ -141,7 +142,7 @@
     >
       ลงทะเบียน
     </b-button>
-    <div class="login">
+    <div class="login mb-5">
       มีบัญชีอยู่แล้ว? <b-link to="/login">เข้าสู่ระบบ</b-link>
     </div>
   </div>
@@ -197,15 +198,15 @@ export default {
             FirstName: this.form.firstName,
             LastName: this.form.lastName,
           })
+          await this.$auth.loginWith('local', {
+            data: {
+              identifier: this.form.email,
+              password: this.form.password,
+            },
+          })
         } catch (e) {
           console.log('Exception: ', e.response)
         }
-        await this.$auth.loginWith('local', {
-          data: {
-            identifier: this.form.email,
-            password: this.form.password,
-          },
-        })
       }
     },
   },
