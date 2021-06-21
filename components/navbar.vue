@@ -4,9 +4,9 @@
       <b-navbar-brand to="/" class="ml-3">
         <img src="~assets/logoweb1.png" />
       </b-navbar-brand>
-	  <b-nav-item>
-					{{ $auth.loggedIn }}
-				</b-nav-item>
+      <b-nav-item>
+        {{ $auth.loggedIn }}
+      </b-nav-item>
       <b-navbar-brand v-if="$auth.loggedIn" class="ml-auto"> </b-navbar-brand>
       <b-navbar-brand v-b-toggle.sidebar-backdrop href="#" class="ml-auto">
         <img src="~assets/menu1.png" />
