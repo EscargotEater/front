@@ -165,10 +165,6 @@ export default {
         ? (this.message = 'ไม่มีความเสี่ยงจะเป็นโรคเบาหวาน')
         : (this.message = 'มีความเสี่ยงจะเป็นโรคเบาหวาน')
     },
-    onSubmit2(event) {
-      event.preventDefault()
-      alert(JSON.stringify(this.value))
-    },
   },
 }
 </script>
