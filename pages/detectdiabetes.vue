@@ -18,6 +18,7 @@
           mx-auto;
         "
     >
+      <b-alert v-if="massage" show variant="success">{{ massage }}</b-alert>
       <b-row class="mb-3" align-v="center" align-h="end">
         <b-col sm="5">อายุ</b-col>
         <b-col sm="2">
@@ -160,11 +161,13 @@ export default {
         tchol: 175,
         hdl: 50,
       },
+      massage: '',
     }
   },
   methods: {
     async submit() {
-      await axios.post('http://localhost:1337/predict/db', {
+      this.message = null
+      const res = await axios.post('http://localhost:1337/predict/db', {
         fbs: this.value.fbs,
         waist: this.value.waist,
         age: this.value.age,
@@ -174,10 +177,9 @@ export default {
         weight: this.value.weight,
         height: this.value.height,
       })
-    },
-    onSubmit2(event) {
-      event.preventDefault()
-      alert(JSON.stringify(this.value))
+      res === 1
+        ? (this.message = 'ไม่มีความเสี่ยงจะเป็นโรคเบาหวาน')
+        : (this.message = 'มีความเสี่ยงจะเป็นโรคเบาหวาน')
     },
   },
 }

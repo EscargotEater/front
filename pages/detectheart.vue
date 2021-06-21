@@ -18,6 +18,7 @@
           mx-auto;
         "
     >
+      <b-alert v-if="massage" show variant="success">{{ massage }}</b-alert>
       <b-row class="mb-3" align-v="center" align-h="end">
         <b-col sm="5">อายุ</b-col>
         <b-col sm="2">
@@ -130,6 +131,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   layout: 'headerguest',
   data() {
@@ -143,12 +146,24 @@ export default {
         tchol: 175,
         hdl: 50,
       },
+      massage: '',
     }
   },
   methods: {
-    onSubmit2(event) {
-      event.preventDefault()
-      alert(JSON.stringify(this.value))
+    async submit() {
+      this.message = null
+      const res = await axios.post('http://localhost:1337/predict/cad', {
+        fbs: this.value.fbs,
+        waist: this.value.waist,
+        age: this.value.age,
+        bpsy: this.value.bpsy,
+        bpdi: this.value.bpdi,
+        tchol: this.value.tchol,
+        hdl: this.value.hdl,
+      })
+      res === 1
+        ? (this.message = 'ไม่มีความเสี่ยงจะเป็นโรคเบาหวาน')
+        : (this.message = 'มีความเสี่ยงจะเป็นโรคเบาหวาน')
     },
   },
 }

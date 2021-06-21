@@ -2,21 +2,30 @@
   <div class="box">
     <p class="bigmsg">ระบบล็อกอิน</p>
     <hr class="solid" />
-
     <p class="desc">กรุณากรอกข้อมูลเพื่อเข้าสู่ระบบ</p>
 
+    <b-alert v-if="error" show variant="danger">{{ error }}</b-alert>
     <p class="fieldname">อีเมล</p>
     <b-input-group class="mb-2" size="lg">
       <b-input-group-prepend is-text>
         <b-icon icon="envelope-fill"></b-icon>
       </b-input-group-prepend>
       <b-form-input
-        v-model="data.identifier"
+        v-model="$v.data.identifier.$model"
+        :class="{ hasError: $v.data.identifier.$error }"
+        class="msg"
         type="text"
         placeholder="โปรดกรอกอีเมลของท่านลงในช่องนี้"
-        class="msg"
+        @input="$v.data.identifier.$touch()"
       ></b-form-input>
     </b-input-group>
+    <div
+      v-if="!$v.data.identifier.required && $v.data.identifier.$dirty"
+      class="error"
+    >
+      กรุณากรอกอีเมล์
+    </div>
+    <div v-if="!$v.data.identifier.email" class="error">อีเมล์ไม่ถูกต้อง</div>
 
     <p class="fieldname">รหัสผ่าน</p>
     <b-input-group class="mb-2" size="lg">
@@ -24,12 +33,20 @@
         <b-icon icon="person-fill"></b-icon>
       </b-input-group-prepend>
       <b-form-input
-        v-model="data.password"
+        v-model="$v.data.password.$model"
+        :class="{ hasError: $v.data.password.$error }"
+        class="msg"
         type="password"
         placeholder="โปรดกรอกรหัสผ่านของท่านลงในช่องนี้"
-        class="msg"
+        @input="$v.data.password.$touch()"
       ></b-form-input>
     </b-input-group>
+    <div
+      v-if="!$v.data.password.required && $v.data.password.$dirty"
+      class="error"
+    >
+      กรุณากรอกรหัสผ่าน
+    </div>
 
     <b-button
       type="submit"
@@ -61,6 +78,7 @@
 </template>
 
 <script>
+import { required, email } from 'vuelidate/lib/validators'
 export default {
   layout: 'headerguest',
   data() {
@@ -69,14 +87,39 @@ export default {
         identifier: '',
         password: '',
       },
+      error: '',
     }
+  },
+  validations: {
+    data: {
+      identifier: {
+        email,
+        required,
+      },
+      password: {
+        required,
+      },
+    },
   },
   methods: {
     async login() {
+      this.error = null
       try {
-        await this.$auth.loginWith('local', { data: this.data })
+        if (!this.$v.data.$anyError) {
+          await this.$auth.loginWith('local', { data: this.data })
+        }
       } catch (e) {
-        console.log('Exception: ', e.response)
+        if (e.response?.data?.message[0]?.messages[0]?.message) {
+          const errorMessage =
+            'เข้าสู่ระบบไม่สำเร็จ : ' +
+            e.response?.data?.message[0]?.messages[0]?.message
+          console.error(errorMessage)
+          this.error = errorMessage
+        } else {
+          const errorMessage = 'เข้าสู่ระบบไม่สำเร็จ : ' + e
+          console.error(errorMessage)
+          this.error = errorMessage
+        }
       }
     },
   },
