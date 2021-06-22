@@ -1,6 +1,6 @@
 <template>
   <div>
-	<b-sidebar
+    <b-sidebar
       id="sidebar-backdrop"
       bg-variant="primary"
       text-variant="light"

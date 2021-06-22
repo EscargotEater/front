@@ -149,7 +149,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import { required, minLength, email, sameAs } from 'vuelidate/lib/validators'
 
 export default {
@@ -191,7 +190,7 @@ export default {
     async regis() {
       if (!this.$v.form.$anyError) {
         try {
-          await axios.post('auth/local/register', {
+          await this.$axios.post('auth/local/register', {
             username: this.form.email,
             email: this.form.email,
             password: this.form.password,
