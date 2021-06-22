@@ -131,8 +131,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
   layout: 'headerguest',
   data() {
@@ -152,7 +150,7 @@ export default {
   methods: {
     async submit() {
       this.message = null
-      const res = await axios.post('predict/cad', {
+      const res = await this.$axios.post('predict/cad', {
         fbs: this.value.fbs,
         waist: this.value.waist,
         age: this.value.age,

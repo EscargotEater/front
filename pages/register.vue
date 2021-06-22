@@ -4,7 +4,6 @@
     <hr class="solid" />
 
     <p class="desc">กรุณากรอกข้อมูลเพื่อทำการลงทะเบียน</p>
-    <b-alert v-if="error" show variant="danger">{{ error }}</b-alert>
 
     <p class="fieldname">อีเมล</p>
     <b-input-group class="mb-2" size="lg">
@@ -149,7 +148,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import { required, minLength, email, sameAs } from 'vuelidate/lib/validators'
 
 export default {
@@ -191,7 +189,7 @@ export default {
     async regis() {
       if (!this.$v.form.$anyError) {
         try {
-          await axios.post('auth/local/register', {
+          await this.$axios.post('auth/local/register', {
             username: this.form.email,
             email: this.form.email,
             password: this.form.password,
