@@ -173,4 +173,7 @@ export default {
 .bg {
   background-color: blue;
 }
+.error {
+  color: red;
+}
 </style>

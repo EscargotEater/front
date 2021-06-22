@@ -32,7 +32,7 @@
                 >
                   <b-form-input
                     id="password"
-                    v-model="form.password"
+                    v-model="$v.form.password.$model"
                     type="password"
                     :class="{ hasError: $v.form.password.$error }"
                     @input="$v.form.password.$touch()"
@@ -57,7 +57,7 @@
                 >
                   <b-form-input
                     id="confirm-password"
-                    v-model="form.repassword"
+                    v-model="$v.form.repassword.$model"
                     type="password"
                     :class="{ hasError: $v.form.repassword.$error }"
                     @input="$v.form.repassword.$touch()"
@@ -72,7 +72,8 @@
                   </div>
                   <div
                     v-if="
-                      !$v.form.repassword.sameAs && $v.form.repassword.required
+                      !$v.form.repassword.sameAsPassword &&
+                      $v.form.repassword.required
                     "
                     class="error"
                   >
@@ -91,9 +92,9 @@
 
 <script>
 import { required, minLength, sameAs } from 'vuelidate/lib/validators'
-import { API_URL } from '~/contains'
 
 export default {
+  layout: 'headerguest',
   middleware: 'auth',
   data() {
     return {
@@ -129,12 +130,12 @@ export default {
       try {
         this.$v.form.$touch()
         if (!this.$v.form.$anyError) {
-          await this.$axios.put(API_URL.USERS + this.$auth.user.id, {
+          await this.$axios.put('users/' + this.$auth.user.id, {
             password: this.form.password,
           })
           await this.$auth.fetchUser()
           this.message = `เปลี่ยนรหัสผ่านสำเร็จ`
-          this.$toast.success('เปลี่ยนรหัสผ่านสำเร็จ')
+          // this.$toast.success('เปลี่ยนรหัสผ่านสำเร็จ')
           this.$router.push('/profile')
         }
       } catch (e) {
@@ -142,11 +143,11 @@ export default {
         if (e.response?.data?.message) {
           console.error(errorMessage + e.response?.data?.message)
           this.error = errorMessage + e.response?.data?.message
-          this.$toast.error(errorMessage + e.response?.data?.message)
+          // this.$toast.error(errorMessage + e.response?.data?.message)
         } else {
           console.error(errorMessage + e)
           this.error = errorMessage + e
-          this.$toast.error(errorMessage + e)
+          // this.$toast.error(errorMessage + e)
         }
       }
     },
@@ -154,4 +155,8 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.error {
+  color: red;
+}
+</style>

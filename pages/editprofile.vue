@@ -54,7 +54,7 @@
                     "
                     class="error"
                   >
-                    กรุณากรอกนามสกุล
+                    กรุณากรอกชื่อ
                   </div>
                 </b-form-group>
 
@@ -91,6 +91,7 @@
 <script>
 import { required } from 'vuelidate/lib/validators'
 export default {
+  layout: 'headerguest',
   middleware: 'auth',
   data() {
     return {
@@ -124,7 +125,7 @@ export default {
       this.error = null
       if (!this.$v.form.$anyError) {
         try {
-          await this.$axios.put('auth/local/' + this.$auth.user.id, {
+          await this.$axios.put('users/' + this.$auth.user.id, {
             username: this.form.email,
             email: this.form.email,
             FirstName: this.form.firstName,
@@ -132,18 +133,18 @@ export default {
           })
           await this.$auth.fetchUser()
           this.message = `แก้ไขข้อมูลสำเร็จ`
-          this.$toast.success('แก้ไขข้อมูลสำเร็จ')
+          // this.$toast.success('แก้ไขข้อมูลสำเร็จ')
           this.$router.push('/profile')
         } catch (e) {
           const errorMessage = 'แก้ไขข้อมูลไม่สำเร็จ : '
           if (e.response?.data?.message) {
             console.error(errorMessage + e.response?.data?.message)
             this.error = errorMessage + e.response?.data?.message
-            this.$toast.error(errorMessage + e.response?.data?.message)
+            // this.$toast.error(errorMessage + e.response?.data?.message)
           } else {
             console.error(errorMessage + e)
             this.error = errorMessage + e
-            this.$toast.error(errorMessage + e)
+            // this.$toast.error(errorMessage + e)
           }
         }
       }
@@ -152,4 +153,8 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.error {
+  color: red;
+}
+</style>

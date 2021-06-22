@@ -71,7 +71,7 @@
       กรุณายืนยันรหัสผ่าน
     </div>
     <div
-      v-if="!$v.form.repassword.sameAs && $v.form.repassword.required"
+      v-if="!$v.form.repassword.sameAsPassword && $v.form.repassword.required"
       class="error"
     >
       รหัสผ่านไม่ตรงกัน
@@ -177,7 +177,7 @@ export default {
       },
       repassword: {
         required,
-        sameAs: sameAs('password'),
+        sameAsPassword: sameAs('password'),
       },
       firstName: {
         required,
