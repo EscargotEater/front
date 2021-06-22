@@ -69,7 +69,7 @@
         </b-col>
         <b-col cols="12" class="my-2 secondary-font">
           <b-card title="ประวัติการตรวจโรคเบาหวาน">
-            <DiabeteChart :data="diabetes.result" />
+            <DiabetesChart :data="diabetes.result" />
             <b-row class="my-3">
               <b-col cols="12" sm="12" md="5" align-self="end">
                 <label for="diabetes-date-from-datepicker">จากวันที่</label>
