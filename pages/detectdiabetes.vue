@@ -167,7 +167,7 @@ export default {
   methods: {
     async submit() {
       this.message = null
-      const res = await axios.post('http://localhost:1337/predict/db', {
+      const res = await axios.post('predict/db', {
         fbs: this.value.fbs,
         waist: this.value.waist,
         age: this.value.age,

@@ -152,7 +152,7 @@ export default {
   methods: {
     async submit() {
       this.message = null
-      const res = await axios.post('http://localhost:1337/predict/cad', {
+      const res = await axios.post('predict/cad', {
         fbs: this.value.fbs,
         waist: this.value.waist,
         age: this.value.age,

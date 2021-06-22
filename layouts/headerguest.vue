@@ -50,10 +50,6 @@
             </b-collapse>
           </b-navbar>
 
-          <b-nav-item v-if="$auth.loggedIn" to="/history"
-            ><p class="a">ประวัติการตรวจ</p></b-nav-item
-          >
-
           <b-navbar toggleable type="dark">
             <b-navbar-brand href="#" target="navbar-toggle-collapse2"
               ><p class="e">ข้อมูลโรค</p></b-navbar-brand

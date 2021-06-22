@@ -44,8 +44,18 @@
                 >
                   <b-form-input
                     id="first-name"
-                    v-model="form.firstName"
+                    v-model="$v.form.firstName.$model"
+                    :class="{ hasError: $v.form.firstName.$error }"
+                    @input="$v.form.firstName.$touch()"
                   ></b-form-input>
+                  <div
+                    v-if="
+                      !$v.form.firstName.required && $v.form.firstName.$dirty
+                    "
+                    class="error"
+                  >
+                    กรุณากรอกนามสกุล
+                  </div>
                 </b-form-group>
 
                 <b-form-group
@@ -56,34 +66,16 @@
                 >
                   <b-form-input
                     id="last-name"
-                    v-model="form.lastName"
+                    v-model="$v.form.lastName.$model"
+                    :class="{ hasError: $v.form.lastName.$error }"
+                    @input="$v.form.lastName.$touch()"
                   ></b-form-input>
-                </b-form-group>
-
-                <b-form-group
-                  label="เบอร์โทร : "
-                  label-for="mobile"
-                  label-cols-sm="3"
-                  label-align-sm="right"
-                >
-                  <b-form-input
-                    id="mobile"
-                    v-model="form.mobile"
-                  ></b-form-input>
-                </b-form-group>
-
-                <b-form-group
-                  label="ที่อยู่ : "
-                  label-for="address"
-                  label-cols-sm="3"
-                  label-align-sm="right"
-                >
-                  <b-form-textarea
-                    id="address"
-                    v-model="form.address"
-                    rows="3"
-                    max-rows="6"
-                  ></b-form-textarea>
+                  <div
+                    v-if="!$v.form.lastName.required && $v.form.lastName.$dirty"
+                    class="error"
+                  >
+                    กรุณากรอกนามสกุล
+                  </div>
                 </b-form-group>
               </b-form-group>
               <hr />
@@ -97,7 +89,7 @@
 </template>
 
 <script>
-import { API_URL } from '~/contains'
+import { required } from 'vuelidate/lib/validators'
 export default {
   middleware: 'auth',
   data() {
@@ -107,12 +99,20 @@ export default {
         email: this.$auth.user.email,
         firstName: this.$auth.user.first_name,
         lastName: this.$auth.user.last_name,
-        mobile: this.$auth.user.mobile,
-        address: this.$auth.user.address,
       },
       massage: '',
       error: '',
     }
+  },
+  validations: {
+    form: {
+      firstName: {
+        required,
+      },
+      lastName: {
+        required,
+      },
+    },
   },
   methods: {
     onSubmit(event) {
@@ -122,29 +122,29 @@ export default {
     async saveUser() {
       this.massage = null
       this.error = null
-      try {
-        await this.$axios.put(API_URL.USERS + this.$auth.user.id, {
-          username: this.form.email,
-          email: this.form.email,
-          first_name: this.form.firstName,
-          last_name: this.form.lastName,
-          mobile: this.form.mobile,
-          address: this.form.address,
-        })
-        await this.$auth.fetchUser()
-        this.message = `แก้ไขข้อมูลสำเร็จ`
-        this.$toast.success('แก้ไขข้อมูลสำเร็จ')
-        this.$router.push('/profile')
-      } catch (e) {
-        const errorMessage = 'แก้ไขข้อมูลไม่สำเร็จ : '
-        if (e.response?.data?.message) {
-          console.error(errorMessage + e.response?.data?.message)
-          this.error = errorMessage + e.response?.data?.message
-          this.$toast.error(errorMessage + e.response?.data?.message)
-        } else {
-          console.error(errorMessage + e)
-          this.error = errorMessage + e
-          this.$toast.error(errorMessage + e)
+      if (!this.$v.form.$anyError) {
+        try {
+          await this.$axios.put('auth/local/' + this.$auth.user.id, {
+            username: this.form.email,
+            email: this.form.email,
+            FirstName: this.form.firstName,
+            LastName: this.form.lastName,
+          })
+          await this.$auth.fetchUser()
+          this.message = `แก้ไขข้อมูลสำเร็จ`
+          this.$toast.success('แก้ไขข้อมูลสำเร็จ')
+          this.$router.push('/profile')
+        } catch (e) {
+          const errorMessage = 'แก้ไขข้อมูลไม่สำเร็จ : '
+          if (e.response?.data?.message) {
+            console.error(errorMessage + e.response?.data?.message)
+            this.error = errorMessage + e.response?.data?.message
+            this.$toast.error(errorMessage + e.response?.data?.message)
+          } else {
+            console.error(errorMessage + e)
+            this.error = errorMessage + e
+            this.$toast.error(errorMessage + e)
+          }
         }
       }
     },

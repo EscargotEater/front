@@ -34,13 +34,19 @@
                     id="password"
                     v-model="form.password"
                     type="password"
-                    :state="validateState('password')"
-                    aria-describedby="password-live-feedback"
+                    :class="{ hasError: $v.form.password.$error }"
                     @input="$v.form.password.$touch()"
                   ></b-form-input>
-                  <b-form-invalid-feedback id="password-live-feedback">
-                    {{ passwordErrors.toString() }}
-                  </b-form-invalid-feedback>
+                  <div
+                    v-if="!$v.form.password.required && $v.form.password.$dirty"
+                    class="error"
+                  >
+                    กรุณากรอกรหัสผ่าน
+                  </div>
+                  <div v-if="!$v.form.password.minLength" class="error">
+                    กรุณากรอกรหัสผ่านอย่างน้อย
+                    {{ $v.form.password.$params.minLength.min }} ตัวอักษร
+                  </div>
                 </b-form-group>
 
                 <b-form-group
@@ -51,15 +57,27 @@
                 >
                   <b-form-input
                     id="confirm-password"
-                    v-model="form.confirmPassword"
+                    v-model="form.repassword"
                     type="password"
-                    :state="validateState('confirmPassword')"
-                    aria-describedby="confirmPassword-live-feedback"
-                    @input="$v.form.confirmPassword.$touch()"
+                    :class="{ hasError: $v.form.repassword.$error }"
+                    @input="$v.form.repassword.$touch()"
                   ></b-form-input>
-                  <b-form-invalid-feedback id="confirmPassword-live-feedback">
-                    {{ passwordConfirmErrors.toString() }}
-                  </b-form-invalid-feedback>
+                  <div
+                    v-if="
+                      !$v.form.repassword.required && $v.form.repassword.$dirty
+                    "
+                    class="error"
+                  >
+                    กรุณายืนยันรหัสผ่าน
+                  </div>
+                  <div
+                    v-if="
+                      !$v.form.repassword.sameAs && $v.form.repassword.required
+                    "
+                    class="error"
+                  >
+                    รหัสผ่านไม่ตรงกัน
+                  </div>
                 </b-form-group>
               </b-form-group>
               <b-button variant="primary" type="submit">บันทึก</b-button>
@@ -82,7 +100,7 @@ export default {
       show: true,
       form: {
         password: '',
-        confirmPassword: '',
+        repassword: '',
       },
       massage: '',
       error: '',
@@ -94,39 +112,13 @@ export default {
         required,
         minLength: minLength(6),
       },
-      confirmPassword: {
+      repassword: {
         required,
         sameAsPassword: sameAs('password'),
       },
     },
   },
-  computed: {
-    passwordErrors() {
-      const errors = []
-      if (!this.$v.form.password.$dirty) {
-        return errors
-      }
-      !this.$v.form.password.maxLength &&
-        errors.push('รหัสผ่านต้องมีความยาวมากกว่า 6')
-      !this.$v.form.password.required && errors.push('ต้องการ')
-      return errors
-    },
-    passwordConfirmErrors() {
-      const errors = []
-      if (!this.$v.form.confirmPassword.$dirty) {
-        return errors
-      }
-      !this.$v.form.confirmPassword.sameAsPassword &&
-        errors.push('รหัสผ่านต้องเหมือนกัน')
-      !this.$v.form.confirmPassword.required && errors.push('ต้องการ')
-      return errors
-    },
-  },
   methods: {
-    validateState(name) {
-      const { $dirty, $error } = this.$v.form[name]
-      return $dirty ? !$error : null
-    },
     onSubmit(event) {
       this.savePassword()
       event.preventDefault()

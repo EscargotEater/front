@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-container class="mt-5">
+    <b-container class="my-5">
       <b-row>
         <b-col cols="12">
           <h1 class="b">เกมส์ตอบคําถาม</h1>
@@ -11,7 +11,6 @@
             type="iframe"
             aspect="16by9"
             src="/game/index.html"
-            allowfullscreen
           ></b-embed>
         </b-col>
       </b-row>

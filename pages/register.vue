@@ -191,7 +191,7 @@ export default {
     async regis() {
       if (!this.$v.form.$anyError) {
         try {
-          await axios.post('http://localhost:1337/auth/local/register', {
+          await axios.post('auth/local/register', {
             username: this.form.email,
             email: this.form.email,
             password: this.form.password,
