@@ -1,13 +1,13 @@
 <template>
   <div>
     <b-container class="my-5">
-      <b-row>
+      <b-row style="font-family: 'K2D', sans-serif">
         <b-col cols="12">
-          <h1 class="custom-title">แก้ไขโปรไฟล์</h1>
-          <hr class="my-3" />
+          <h1 style="color: darkslategray">แก้ไขโปรไฟล์</h1>
+          <hr class="my-4" />
         </b-col>
         <b-col cols="12">
-          <b-button to="/profile" variant="outline-secondary">กลับ</b-button>
+          <b-button to="/profile" variant="outline-danger">ย้อนกลับ</b-button>
         </b-col>
         <b-col cols="12" class="secondary-font my-3">
           <b-card>

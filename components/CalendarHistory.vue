@@ -13,9 +13,15 @@
             ></b-calendar>
           </div>
         </b-col>
-        <b-col cols="12" md="6" lg="8" class="mt-3 mt-md-0">
+        <b-col
+          cols="12"
+          md="6"
+          lg="8"
+          class="mt-3 mt-md-0"
+          style="font-family: 'K2D', sans-serif"
+        >
           <div class="mb-3">
-            <h4 class="custom-title">ประวัติการตรวจโรคเบาหวาน</h4>
+            <h4>ประวัติการตรวจโรคเบาหวาน</h4>
             <b-table
               v-if="table.itemsDiabete"
               striped
@@ -40,7 +46,7 @@
           </div>
           <hr class="my-3" />
           <div class="mb-3">
-            <h4 class="custom-title">ประวัติการตรวจโรคหัวใจ</h4>
+            <h4>ประวัติการตรวจโรคหัวใจ</h4>
             <b-table
               v-if="table.itemsHeart"
               striped

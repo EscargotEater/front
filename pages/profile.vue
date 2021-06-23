@@ -3,13 +3,11 @@
     <b-container class="my-5">
       <b-row>
         <b-col cols="12">
-          <h1 class="custom-title">
-            โปรไฟล์ของคุณ {{ $auth.user.first_name }} {{ $auth.user.last_name }}
-          </h1>
-          <hr class="my-3" />
+          <h1 class="a1">โปรไฟล์ของคุณ</h1>
+          <hr class="my-4" />
         </b-col>
         <b-col cols="12" class="secondary-font my-2">
-          <b-card>
+          <b-card class="a2">
             <b-form-group
               label-cols-lg="3"
               label="ข้อมูลผู้ใช้"
@@ -53,10 +51,18 @@
           </b-card>
         </b-col>
         <b-col cols="12" class="text-right my-2">
-          <b-button to="/editprofile" variant="secondary">
+          <b-button
+            to="/editprofile"
+            variant="danger"
+            style="font-family: 'K2D', sans-serif"
+          >
             แก้ไขโปรไฟล์
           </b-button>
-          <b-button to="/changepass" variant="secondary">
+          <b-button
+            to="/changepass"
+            variant="success"
+            style="font-family: 'K2D', sans-serif"
+          >
             เปลี่ยนรหัสผ่าน
           </b-button>
         </b-col>
@@ -67,8 +73,11 @@
             :heart="heart.result"
           />
         </b-col>
-        <b-col cols="12" class="my-2 secondary-font">
-          <b-card title="ประวัติการตรวจโรคเบาหวาน">
+        <b-col cols="12" class="my-2">
+          <b-card
+            title="ประวัติการตรวจโรคเบาหวาน"
+            style="font-family: 'K2D', sans-serif; text-align: center"
+          >
             <DiabetesChart :data="diabetes.result" />
             <b-row class="my-3">
               <b-col cols="12" sm="12" md="5" align-self="end">
@@ -94,7 +103,7 @@
                   block
                   @click="fetchStats('diabetes')"
                 >
-                  ส่ง
+                  บันทึก
                 </b-button>
               </b-col>
             </b-row>
@@ -120,8 +129,11 @@
             </b-card-text>
           </b-card>
         </b-col>
-        <b-col cols="12" class="my-2 secondary-font">
-          <b-card title="ประวัติการตรวจโรคหัวใจ">
+        <b-col cols="12" class="my-2">
+          <b-card
+            title="ประวัติการตรวจโรคหัวใจ"
+            style="font-family: 'K2D', sans-serif; text-align: center"
+          >
             <HeartChart :data="heart.result" />
             <b-row class="my-3">
               <b-col cols="12" md="5">
@@ -147,7 +159,7 @@
                   block
                   @click="fetchStats('heart')"
                 >
-                  ส่ง
+                  บันทึก
                 </b-button>
               </b-col>
             </b-row>
@@ -299,4 +311,16 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.a1 {
+  color: darkslategray;
+  font-family: 'K2D', sans-serif;
+  font-size: 40px;
+}
+
+.a2 {
+  color: black;
+  font-family: 'K2D', sans-serif;
+  font-size: 20px;
+}
+</style>

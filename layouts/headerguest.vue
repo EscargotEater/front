@@ -8,6 +8,8 @@
         <b-navbar-brand>
           {{ customerName }}
         </b-navbar-brand>
+      </b-navbar-nav>
+      <b-navbar-nav>
         <b-navbar-brand v-b-toggle.sidebar-backdrop href="#" class="ml-5">
           <b-icon icon="list" font-scale="2"></b-icon>
         </b-navbar-brand>
@@ -121,7 +123,7 @@ img {
 }
 
 .a:hover {
-  border-left-color: solid white;
+  border-left: solid white;
   padding-left: 15px;
   border-width: 4px;
 }

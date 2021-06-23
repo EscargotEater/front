@@ -59,10 +59,16 @@ export default {
         maintainAspectRatio: false,
         legend: {
           position: 'top',
+          labels: {
+            fontSize: 15,
+            fontFamily: 'K2D',
+          },
         },
         title: {
-          display: true,
+          display: false,
           text: 'ประวัติการตรวจโรคหัวใจ',
+          fontSize: 15,
+          fontFamily: 'K2D',
         },
       },
     }
