@@ -19,6 +19,7 @@
         "
     >
       <b-alert v-if="massage" show variant="success">{{ massage }}</b-alert>
+      <b-alert v-if="alert" show variant="danger">{{ alert }}</b-alert>
       <b-row class="mb-3" align-v="center" align-h="end">
         <b-col sm="5">อายุ</b-col>
         <b-col sm="2">
@@ -150,6 +151,7 @@ export default {
   methods: {
     async submit() {
       this.message = null
+      this.alert = null
       const res = await this.$axios.post('predict/cad', {
         fbs: this.value.fbs,
         waist: this.value.waist,
@@ -159,9 +161,9 @@ export default {
         tchol: this.value.tchol,
         hdl: this.value.hdl,
       })
-      res === 1
+      res.data === 0
         ? (this.message = 'ไม่มีความเสี่ยงจะเป็นโรคเบาหวาน')
-        : (this.message = 'มีความเสี่ยงจะเป็นโรคเบาหวาน')
+        : (this.alert = 'มีความเสี่ยงจะเป็นโรคเบาหวาน')
     },
   },
 }
