@@ -18,7 +18,8 @@
           mx-auto;
         "
     >
-      <b-alert v-if="massage" show variant="success">{{ massage }}</b-alert>
+      <b-alert v-if="message" show variant="success">{{ message }}</b-alert>
+      <b-alert v-if="alert" show variant="danger">{{ alert }}</b-alert>
       <b-row class="mb-3" align-v="center" align-h="end">
         <b-col sm="5">อายุ</b-col>
         <b-col sm="2">
@@ -160,12 +161,14 @@ export default {
         tchol: 175,
         hdl: 50,
       },
-      massage: '',
+      message: '',
+      alert: '',
     }
   },
   methods: {
     async submit() {
       this.message = null
+      this.alert = null
       const res = await this.$axios.post('predict/db', {
         fbs: this.value.fbs,
         waist: this.value.waist,
@@ -176,9 +179,9 @@ export default {
         weight: this.value.weight,
         height: this.value.height,
       })
-      res === 1
+      res.data === 0
         ? (this.message = 'ไม่มีความเสี่ยงจะเป็นโรคเบาหวาน')
-        : (this.message = 'มีความเสี่ยงจะเป็นโรคเบาหวาน')
+        : (this.alert = 'มีความเสี่ยงจะเป็นโรคเบาหวาน')
     },
   },
 }
