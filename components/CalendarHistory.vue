@@ -7,7 +7,7 @@
             <b-calendar
               v-model="calendar.value"
               block
-              locale="en-US"
+              locale="th-th"
               :date-info-fn="dateClass"
               @context="onContext"
             ></b-calendar>
